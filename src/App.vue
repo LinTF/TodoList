@@ -12,14 +12,17 @@
       </div>
     </div>
   </div>
-  <div>
-    <p v-for="(item, index) in todoItem" :key="index">{{ item }}</p>
+
+  <div class="row">
+    <todo :propsTodo="todoItem" />
   </div>
 </template>
 
 <script>
+  import todo from "@/components/todo.vue"
+
   export default {
-    name: 'todo',
+    name: 'todoList',
     data() {
       return {
         todoItem: [],
@@ -27,6 +30,9 @@
         finishItem: [],
         todoItemText: ''
       }
+    },
+    components: {
+      todo,
     },
     methods: {
       addTodoItem() {
