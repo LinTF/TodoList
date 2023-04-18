@@ -34,12 +34,22 @@
     components: {
       todo,
     },
+    created() {
+      // 當元件被建立時讀取 localstorage 資料
+      const todoListData = localStorage.getItem("todoItem");
+      if (todoListData) {
+        this.todoItem = JSON.parse(todoListData);
+      }
+    },
     methods: {
       addTodoItem() {
-        this.todoItem.push(this.todoItemText);
-        
-        // 新增後還原 textbox 為空值
-        this.todoItemText='';
+        if (this.todoItemText.trim() !== '') {
+          this.todoItem.push(this.todoItemText);
+          localStorage.setItem("todoItem", JSON.stringify(this.todoItem));
+
+          // 新增後還原 textbox 為空值
+          this.todoItemText='';
+        }
       }
     }
   }
