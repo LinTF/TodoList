@@ -29,6 +29,7 @@
         data() {
             return {
                 isShow: false,
+                isChecked: false
             }
         },
         methods: {
@@ -47,6 +48,9 @@
             },
             showClass() {
                 this.isShow = !this.isShow;
+            },
+            getCheckedItem(val) {
+                // console.log(val);
             }
         },
         computed: {
@@ -60,47 +64,14 @@
 </script>
 
 <style scoped lang="scss">
-    h3 {
-        text-align: center;
-    }
-
-    .del-icon {
-        background-color: unset;
-        border: none;
-        font-size: 20px;
-        color: #555555;
-    }
-
     .todo-block {
         .item {
             background-color: #f6f5f5;
-            border-radius: 30px;
-            padding: 5px 10px;
-            margin: 10px 0px 10px 0px;
             border: 1px solid #f6f5f5;
 
             &:hover{
                 border: 1px solid #d6279c;
             }
-
-            p {
-                margin-bottom: 0px;
-            }
-    
-            button {
-                margin: 0 auto;
-                display: block;
-                margin-bottom: 0px !important;
-            }
-
-            input[type="checkbox"] {
-                margin-right: 10px;
-            }
         }
-    }
-
-    .vertical-center {
-        display: flex;
-        align-items: center;
     }
 </style>

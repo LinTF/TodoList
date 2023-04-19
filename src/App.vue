@@ -15,11 +15,13 @@
 
   <div class="row">
     <todo :propsTodo="todoItem" />
+    <ing :propsIng="todoItem" />
   </div>
 </template>
 
 <script>
   import todo from "@/components/todo.vue"
+  import ing from "@/components/ing.vue"
 
   export default {
     name: 'todoList',
@@ -33,6 +35,7 @@
     },
     components: {
       todo,
+      ing
     },
     created() {
       // 當元件被建立時讀取 localstorage 資料
