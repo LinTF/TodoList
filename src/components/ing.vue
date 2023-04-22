@@ -4,7 +4,7 @@
             <button class="del-icon" @click="showClass"><i class="fa-regular fa-trash-can"></i></button>
         </h3>
         <div class="todo-block">
-            <div v-for="(item, index) in propsIng" :key="index" class="row item">
+            <div v-for="(item, index) in propsIngItemTxtArray" :key="index" class="row item">
                 <div class="col-md-8 vertical-center">
                     <input type="checkbox" :id="item+index">
                     <label :for="item+index">{{ item }}</label>
@@ -21,7 +21,7 @@
     export default {
         name: 'ing',
         props: {
-            propsIng: {
+            propsIngItemTxtArray: {
                 type: Array,
                 required: true
             }
@@ -34,7 +34,7 @@
         methods: {
             showClass() {
                 this.isShow = !this.isShow
-            }
+            },
         },
         computed: {
             dynamicStyle() {

@@ -14,8 +14,8 @@
   </div>
 
   <div class="row">
-    <todo :propsTodo="todoItem" />
-    <ing :propsIng="todoItem" />
+    <todo :propsTodo="todoItem" @emitItemTxtArray="getSelectItemTxt" />
+    <ing :propsIngItemTxtArray="ingItem" />
   </div>
 </template>
 
@@ -53,6 +53,9 @@
           // 新增後還原 textbox 為空值
           this.todoItemText='';
         }
+      },
+      getSelectItemTxt(val) {
+        this.ingItem = val;
       }
     }
   }

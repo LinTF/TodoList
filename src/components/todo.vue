@@ -6,7 +6,7 @@
         <div class="todo-block">
             <div v-for="(item, index) in propsTodo" :key="index" class="row item">
                 <div class="col-md-8 vertical-center">
-                    <input type="checkbox" :id="item+index">
+                    <input type="checkbox" :id="item+index" :checked="selectItem === index" @change="getCheckedItem(index, item)">
                     <label :for="item+index">{{ item }}</label>
                 </div>
                 <div class="col-md-4">
@@ -29,7 +29,8 @@
         data() {
             return {
                 isShow: false,
-                isChecked: false
+                selectItem: -1,
+                itemTxtArray: []
             }
         },
         methods: {
@@ -49,8 +50,13 @@
             showClass() {
                 this.isShow = !this.isShow;
             },
-            getCheckedItem(val) {
-                // console.log(val);
+            getCheckedItem(val, txt) {
+                this.selectItem = val;
+                if (this.selectItem !== -1) {
+                    this.propsTodo.splice(val, 1);
+                    this.itemTxtArray.push(txt);
+                    this.$emit('emitItemTxtArray', this.itemTxtArray);
+                }
             }
         },
         computed: {
