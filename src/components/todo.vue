@@ -1,13 +1,13 @@
 <template>
-    <div class="col-md-4">
-        <h3># 待辦事項 
+    <div class="col-md-4" v-for="todo in propsTodo" :key="todo.date">
+        <h3>{{ todo.date }}
             <button class="del-icon" @click="showClass"><i class="fa-regular fa-trash-can"></i></button>
         </h3>
         <div class="todo-block">
-            <div v-for="(item, index) in propsTodo" :key="index" class="row item">
+            <div v-for="(todoItem, index) in todo.item" :key="index" class="row item">
                 <div class="col-md-8 vertical-center">
-                    <input type="checkbox" :id="item+index" @change="getCheckedItem(index, item)">
-                    <label :for="item+index">{{ item }}</label>
+                    <input type="checkbox" :id="todoItem+index" @change="getCheckedItem(index, todoItem)">
+                    <label :for="todoItem+index">{{ todoItem }}</label>
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-danger mb-3" :style="dynamicStyle" @click="deleteTodoItem(index)">刪除</button>
@@ -33,6 +33,7 @@
                 itemTxtArray: []
             }
         },
+        emits: ['emitItemTxtArray'],
         methods: {
             deleteTodoItem(val) {
                 // 從 localStorage 將 todoItem 取出，並轉換成陣列

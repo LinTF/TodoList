@@ -6,12 +6,9 @@
       </div>
       <div class="col-md-2">
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ formatDate(this.dates[0]) }}
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li v-for="date in this.dates" :key="date"><a class="dropdown-item" href="#">{{ formatDate(date) }}</a></li>
-          </ul>
+          <div>
+            <input type="date" v-model="selectedDate" class="form-control">
+          </div>
         </div>
       </div>
       <div class="col-md-6">
@@ -25,7 +22,7 @@
 
   <div class="row">
     <todo :propsTodo="todoItem" @emitItemTxtArray="getSelectItemTxt" />
-    <ing :propsIngItemTxtArray="ingItem" />
+    <!-- <ing :propsIngItemTxtArray="ingItem" /> -->
   </div>
 </template>
 
@@ -37,11 +34,23 @@
     name: 'todoList',
     data() {
       return {
-        todoItem: [],
-        ingItem: [],
-        finishItem: [],
+        // todoItem: [],
+        todoItem: [
+          {
+            date: '5/19',
+            item: ['這是第一個測試', '這是第二個測試', '這是第三個測試'
+            ]
+          },
+          {
+            date: '5/20',
+            item: ['這是第一個測試1', '這是第二個測試2'
+            ]
+          }
+        ],
+        // ingItem: [],
+        // finishItem: [],
         todoItemText: '',
-        dates: []
+        selectedDate: ''
       }
     },
     components: {
@@ -50,18 +59,24 @@
     },
     created() {
       // 當元件被建立時讀取 localstorage 資料
-      const todoListData = localStorage.getItem("todoItem");
-      if (todoListData) {
-        this.todoItem = JSON.parse(todoListData);
-      }
+      // const todoListData = localStorage.getItem("todoItem");
+      // if (todoListData) {
+      //   this.todoItem = JSON.parse(todoListData);
+      // }
 
-      // 日期列表
-      this.getDateList();
+      // 日期元件
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      this.selectedDate = `${year}-${month}-${day}`;
     },
     methods: {
       addTodoItem() {
         if (this.todoItemText.trim() !== '') {
-          this.todoItem.push(this.todoItemText);
+          const date = this.formatDate(this.selectedDate);
+          const item = date + '：' + this.todoItemText
+          this.todoItem.push(item);
           localStorage.setItem("todoItem", JSON.stringify(this.todoItem));
 
           // 新增後還原 textbox 為空值
@@ -69,26 +84,10 @@
         }
       },
       getSelectItemTxt(val) {
-        this.ingItem = val;
+        // this.ingItem = val;
       },
-      getDateList() {
-        const now = new Date();
-        const after30Days = new Date(now);
-        // const dateList = [];
-
-        // 加 30 天
-        after30Days.setDate(now.getDate() + 30);
-
-        // 跑迴圈把所有日期裝到陣列 dates 裡
-        while (now <= after30Days) {
-          // dateList.push(new Date(now));
-          this.dates.push(new Date(now));
-          now.setDate(now.getDate() + 1);
-        }
-
-        // this.dates = dateList;
-      },
-      formatDate(date) {
+      formatDate(dateStr) {
+        const date = new Date(dateStr);
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
