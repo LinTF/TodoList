@@ -22,7 +22,6 @@
 
   <div class="row">
     <todo :propsTodo="todoItem" @emitItemTxtArray="getSelectItemTxt" />
-    
     <!-- <ing :propsIngItemTxtArray="ingItem" /> -->
   </div>
 </template>
