@@ -4,10 +4,10 @@
             <button class="del-icon" @click="showClass"><i class="fa-regular fa-trash-can"></i></button>
         </h3>
         <div class="todo-block">
-            <div v-for="(todoItem, index) in todo.item" :key="index" class="row item">
+            <div v-for="(todoItem, index) in todo.item" :key="todoItem.text" class="row item">
                 <div class="col-md-8 vertical-center">
-                    <input type="checkbox" :id="todoItem+index" @change="getCheckedItem(index, todoItem)">
-                    <label :for="todoItem+index">{{ todoItem }}</label>
+                    <input type="checkbox" :id="todoItem.text+index" @change="getCheckedItem(index, todo.date)">
+                    <label :for="todoItem.text+index">{{ todoItem.text }}</label>
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-danger mb-3" :style="dynamicStyle" @click="deleteTodoItem(index)">刪除</button>
@@ -30,7 +30,8 @@
             return {
                 isShow: false,
                 selectItem: -1,
-                itemTxtArray: []
+                itemTxtArray: [],
+                isChecked: false
             }
         },
         emits: ['emitItemTxtArray'],
@@ -53,16 +54,32 @@
             },
             getCheckedItem(val, txt) {
                 if (val !== -1) {
-                    this.propsTodo.splice(val, 1);
-                    this.itemTxtArray.push(txt);
-                    this.$emit('emitItemTxtArray', this.itemTxtArray);
+                    // this.propsTodo.splice(val, 1);
+                    // this.itemTxtArray.push(txt);
+                    // this.$emit('emitItemTxtArray', this.itemTxtArray);
+                    
+                    // console.log(val + ':' + txt)
+
+                    // const testNum = this.propsTodo.indexOf(txt);
+                    // if (testNum > -1) {
+                        
+                    // }
+
+                    // console.log(this.propsTodo.some(item =>item.date === txt));
+
+                    
                 }
             }
         },
         computed: {
             dynamicStyle() {
                 return {
-                    visibility: this.isShow ? 'unset' : 'hidden',
+                    visibility: this.isShow ? 'unset' : 'hidden'
+                }
+            },
+            testAA(val, txt) {
+                return {
+                    'text-decoration': val > 0 ? 'line-through' : 'none'
                 }
             }
         }

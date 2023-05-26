@@ -37,13 +37,18 @@
         // todoItem: [],
         todoItem: [
           {
-            date: '5/19',
-            item: ['這是第一個測試', '這是第二個測試', '這是第三個測試'
+            date: '2023/05/19',
+            item: [
+              { text: '這是第一個測試', isFinish: false },
+              { text: '這是第二個測試', isFinish: false },
+              { text: '這是第三個測試', isFinish: false }
             ]
           },
           {
-            date: '5/20',
-            item: ['這是第一個測試1', '這是第二個測試2'
+            date: '2023/05/20',
+            item: [
+              { text: '這是第一個測試1', isFinish: false },
+              { text: '這是第二個測試2', isFinish: false }
             ]
           }
         ],
@@ -73,11 +78,25 @@
     },
     methods: {
       addTodoItem() {
-        if (this.todoItemText.trim() !== '') {
-          const date = this.formatDate(this.selectedDate);
-          const item = date + '：' + this.todoItemText
-          this.todoItem.push(item);
-          localStorage.setItem("todoItem", JSON.stringify(this.todoItem));
+        const todoItemText = this.todoItemText.trim();
+        if (todoItemText !== '') {
+          const formatSelDate = this.formatDate(this.selectedDate);
+          const hasDateData = this.todoItem.some(item => item.date === formatSelDate);
+
+          if (hasDateData === true) {
+            
+          } else {
+            
+          }
+          // console.log(this.formatDate(this.selectedDate));
+
+          // console.log(formatSelDate);
+          // console.log(this.todoItem.some(item => item.date === this.formatDate(this.selectedDate)))
+
+          // const date = this.formatDate(this.selectedDate);
+          // const item = date + '：' + this.todoItemText
+          // this.todoItem.push(item);
+          // localStorage.setItem("todoItem", JSON.stringify(this.todoItem));
 
           // 新增後還原 textbox 為空值
           this.todoItemText='';
