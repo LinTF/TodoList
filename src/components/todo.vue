@@ -1,16 +1,20 @@
 <template>
-    <div class="col-md-4" v-for="todo in propsTodo" :key="todo.date">
+    <div class="col-md-4" v-for="(todo, dateIndex) in propsTodo" :key="dateIndex">
         <h3>{{ todo.date }}
             <button class="del-icon" @click="showClass"><i class="fa-regular fa-trash-can"></i></button>
         </h3>
         <div class="todo-block">
-            <div v-for="(todoItem, index) in todo.item" :key="todoItem.text" class="row item">
+            <div v-for="(todoItem, itemIndex) in todo.item" :key="todoItem.text" class="row item">
                 <div class="col-md-8 vertical-center">
-                    <input type="checkbox" :id="todoItem.text+index" @change="getCheckedItem(index, todo.date)">
-                    <label :for="todoItem.text+index">{{ todoItem.text }}</label>
+                    <input type="checkbox" :id="todoItem.text+itemIndex" 
+                        @change="getCheckedItem(dateIndex, itemIndex, todoItem.isFinish)">
+                    <label :for="todoItem.text+itemIndex" 
+                        :style="{ 'text-decoration': todoItem.isFinish === true ? 'line-through' : 'none' }">
+                        {{ todoItem.text }}
+                    </label>
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-danger mb-3" :style="dynamicStyle" @click="deleteTodoItem(index)">刪除</button>
+                    <button type="submit" class="btn btn-danger mb-3" :style="dynamicStyle" @click="deleteTodoItem(itemIndex)">刪除</button>
                 </div>
             </div>
         </div>
@@ -52,22 +56,13 @@
             showClass() {
                 this.isShow = !this.isShow;
             },
-            getCheckedItem(val, txt) {
-                if (val !== -1) {
-                    // this.propsTodo.splice(val, 1);
-                    // this.itemTxtArray.push(txt);
-                    // this.$emit('emitItemTxtArray', this.itemTxtArray);
-                    
-                    // console.log(val + ':' + txt)
+            getCheckedItem(dateIndex, itemIndex, isFinish) {
+                if (isFinish === false) {
+                    this.propsTodo[dateIndex].item[itemIndex].isFinish = true;
+                }
 
-                    // const testNum = this.propsTodo.indexOf(txt);
-                    // if (testNum > -1) {
-                        
-                    // }
-
-                    // console.log(this.propsTodo.some(item =>item.date === txt));
-
-                    
+                if (isFinish === true) {
+                    this.propsTodo[dateIndex].item[itemIndex].isFinish = false;
                 }
             }
         },
@@ -75,11 +70,6 @@
             dynamicStyle() {
                 return {
                     visibility: this.isShow ? 'unset' : 'hidden'
-                }
-            },
-            testAA(val, txt) {
-                return {
-                    'text-decoration': val > 0 ? 'line-through' : 'none'
                 }
             }
         }
