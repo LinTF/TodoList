@@ -34,23 +34,7 @@
     name: 'todoList',
     data() {
       return {
-        todoItem: [
-          {
-            date: '2023/05/19',
-            item: [
-              { text: '這是第一個測試', isFinish: false, showDeleteBtn: false},
-              { text: '這是第二個測試', isFinish: false, showDeleteBtn: false },
-              { text: '這是第三個測試', isFinish: false, showDeleteBtn: false }
-            ]
-          },
-          {
-            date: '2023/05/20',
-            item: [
-              { text: '這是第一個測試1', isFinish: false, showDeleteBtn: false },
-              { text: '這是第二個測試2', isFinish: false, showDeleteBtn: false }
-            ]
-          }
-        ],
+        todoItem: [],
         todoItemText: '',
         selectedDate: ''
       }
@@ -61,10 +45,10 @@
     },
     created() {
       // 當元件被建立時讀取 localstorage 資料
-      // const todoListData = localStorage.getItem("todoItem");
-      // if (todoListData) {
-      //   this.todoItem = JSON.parse(todoListData);
-      // }
+      const todoListData = localStorage.getItem("todoItem");
+      if (todoListData) {
+        this.todoItem = JSON.parse(todoListData);
+      }
 
       // 日期元件
       const today = new Date();
@@ -89,19 +73,15 @@
           //   }
           // ]
           
-          console.log(hasDateData)
           if (hasDateData) {
-            hasDateData.item.push({ text: todoItemText, isFinish: false });
+            hasDateData.item.push({ text: todoItemText, isFinish: false, showDeleteBtn: false });
           } else {
-            
+            const newTodoItem = { date: formatSelDate, item: [{ text: todoItemText, isFinish: false, showDeleteBtn: false }] };
+            this.todoItem.push(newTodoItem);
           }
-
 
           // 將更新後的 todoItem 陣列存入 localStorage
           localStorage.setItem("todoItem", JSON.stringify(this.todoItem));
-
-          // 新增後還原 textbox 為空值
-          // this.todoItemText='';
         }
       },
       formatDate(dateStr) {
