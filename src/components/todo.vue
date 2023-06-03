@@ -55,27 +55,15 @@ import { end } from '@popperjs/core';
                 localStorage.setItem('todoItem', JSON.stringify(listItem));
             },
             showClass(dateVal) {
-                // console.log(this.propsTodo[dateVal])
-
                 for (const todo of this.propsTodo) {
-                    // console.log(todo.date)
-                    // console.log(dateVal)
                     if (todo.date === dateVal) {
-                        // this.isShow = !this.isShow;
-
                         for (const item of todo.item) {
                             item.showDeleteBtn = !item.showDeleteBtn;
                         }
-                        
-
+        
                         break;
                     }
                 }
-
-                // if (this.propsTodo[dateVal] === dateVal) {
-                //     console.log('ok')
-                //     this.isShow = !this.isShow;
-                // }  
             },
             getCheckedItem(dateIndex, itemIndex, isFinish) {
                 if (isFinish === false) {
