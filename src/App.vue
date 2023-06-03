@@ -21,14 +21,12 @@
   </div>
 
   <div class="row">
-    <todo :propsTodo="todoItem" />
-    <!-- <ing :propsIngItemTxtArray="ingItem" /> -->
+    <todo :propsTodo="todoItemSort" />
   </div>
 </template>
 
 <script>
   import todo from "@/components/todo.vue"
-  import ing from "@/components/ing.vue"
 
   export default {
     name: 'todoList',
@@ -40,8 +38,7 @@
       }
     },
     components: {
-      todo,
-      ing
+      todo
     },
     created() {
       // 當元件被建立時讀取 localstorage 資料
@@ -68,7 +65,7 @@
           //   {
           //     date: '2023/05/19',
           //     item: [
-          //       { text: '待辦事項', isFinish: false }
+          //       { text: '待辦事項', isFinish: false, showDeleteBtn: false }
           //     ]
           //   }
           // ]
@@ -92,6 +89,16 @@
 
         // 格式化日期
         return `${year}/${month}/${day}`;
+      }
+    },
+    computed: {
+      todoItemSort() {
+        return this.todoItem.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+
+          return dateB - dateA;
+        });
       }
     }
   }
