@@ -56,20 +56,26 @@
     },
     methods: {
       addTodoItem() {
+        // *** todoItem 陣列結構 [
+        //   {
+        //     date: '2023/05/19',
+        //     item: [
+        //       { text: '待辦事項', isFinish: false, showDeleteBtn: false }
+        //     ]
+        //   }
+        // ]
+
         const todoItemText = this.todoItemText.trim();
-        if (todoItemText !== '') {
-          const formatSelDate = this.formatDate(this.selectedDate);
+        const date = this.selectedDate;
+
+        // 判斷是否為日期
+        const isValidDate = this.isValidDate(date);
+
+        if (isValidDate && todoItemText !== '') {
+          const formatSelDate = this.formatDate(date);
+          // 找有沒有已存在的日期
           const hasDateData = this.todoItem.find(item => item.date === formatSelDate);
 
-          // *** todoItem 陣列結構 [
-          //   {
-          //     date: '2023/05/19',
-          //     item: [
-          //       { text: '待辦事項', isFinish: false, showDeleteBtn: false }
-          //     ]
-          //   }
-          // ]
-          
           if (hasDateData) {
             hasDateData.item.push({ text: todoItemText, isFinish: false, showDeleteBtn: false });
           } else {
@@ -79,16 +85,38 @@
 
           // 將更新後的 todoItem 陣列存入 localStorage
           localStorage.setItem("todoItem", JSON.stringify(this.todoItem));
+
+          // 清空輸入框
+          this.todoItemText = '';
         }
       },
       formatDate(dateStr) {
-        const date = new Date(dateStr);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
+        const [year, month, day] = dateStr.split('-');
 
         // 格式化日期
         return `${year}/${month}/${day}`;
+      },
+      isValidDate(dateString) {
+
+        // 將正確日期格式拆開
+        const [year, month, day] = dateString.split('-');
+
+        // 檢查年份是否不小於 1911
+        if (year < 1911) {
+          return false;
+        }
+
+        // 檢查月份是否在 1 到 12 的範圍內
+        if (month < 1 || month > 12) {
+          return false;
+        }
+
+        // 檢查日期是否在合法範圍內
+        if (day < 1 || day > 31) {
+          return false;
+        }
+
+        return true;
       }
     },
     computed: {
