@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-4" v-for="(todo, dateIndex) in propsTodo" :key="dateIndex">
         <h3>{{ todo.date }}
-            <button class="del-icon" @click="showClass(todo.date)"><i class="fa-regular fa-trash-can"></i></button>
+            <button class="del-icon" @click="showDelBtn(todo.date)"><i class="fa-regular fa-trash-can"></i></button>
         </h3>
         <div class="todo-block">
             <div v-for="(todoItem, itemIndex) in todo.item" :key="todoItem.text" class="row item">
@@ -34,10 +34,6 @@ import { end } from '@popperjs/core';
         },
         data() {
             return {
-                isShow: false,
-                selectItem: -1,
-                itemTxtArray: [],
-                isChecked: false
             }
         },
         methods: {
@@ -55,12 +51,12 @@ import { end } from '@popperjs/core';
                 }
 
                 // 切完之後畫面的刪除按鈕隱藏
-                this.showClass(date)
+                this.showDelBtn(date)
                 
                 // 將 localStorage 陣列裝回
                 localStorage.setItem('todoItem', JSON.stringify(this.propsTodo));
             },
-            showClass(dateVal) {
+            showDelBtn(dateVal) {
                 for (const todo of this.propsTodo) {
                     if (todo.date === dateVal) {
                         for (const item of todo.item) {

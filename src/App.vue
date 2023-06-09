@@ -76,6 +76,7 @@
           // 找有沒有已存在的日期
           const hasDateData = this.todoItem.find(item => item.date === formatSelDate);
 
+          // 如果已存在，就新增該日期的資料，不存在就新增包含日期的資料
           if (hasDateData) {
             hasDateData.item.push({ text: todoItemText, isFinish: false, showDeleteBtn: false });
           } else {
