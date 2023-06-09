@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-4" v-for="(todo, dateIndex) in propsTodo" :key="dateIndex">
+    <div class="col-md-4 date-black" v-for="(todo, dateIndex) in propsTodo" :key="dateIndex">
         <h3>{{ todo.date }}
             <button class="del-icon" @click="showDelBtn(todo.date)"><i class="fa-regular fa-trash-can"></i></button>
         </h3>
@@ -82,13 +82,21 @@ import { end } from '@popperjs/core';
 
 <style scoped lang="scss">
     .todo-block {
+        border: 1px solid #f8e4cc;
+        padding: 20px 10px;
+        border-radius: 10px;
+        background-color: #fff;
+
         .item {
-            background-color: #f6f5f5;
-            border: 1px solid #f6f5f5;
+            background-color: #f8e4cc;
 
             &:hover{
                 border: 1px solid #d6279c;
             }
         }
+    }
+    
+    .date-black {
+        margin-bottom: 30px;
     }
 </style>
