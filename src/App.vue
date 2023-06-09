@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-
+  <hr />
   <div class="row">
     <todo :propsTodo="todoItemSort" />
   </div>
@@ -139,5 +139,11 @@
 
   .dropdown {
     text-align: center;
+  }
+
+  hr {
+    border: 1px solid #ccc;
+    width: 50%;
+    margin: 10px auto 30px auto;
   }
 </style>

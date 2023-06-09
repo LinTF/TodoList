@@ -82,8 +82,7 @@ import { end } from '@popperjs/core';
 
 <style scoped lang="scss">
     .todo-block {
-        border: 1px solid #f8e4cc;
-        padding: 20px 10px;
+        padding: 0px 10px 10px 10px;
         border-radius: 10px;
         background-color: #fff;
 
