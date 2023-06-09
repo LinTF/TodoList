@@ -68,7 +68,7 @@
         //     date: '2023/05/19',
         //     isEdit: false,
         //     item: [
-        //       { text: '待辦事項', isFinish: false, showDeleteBtn: false }
+        //       { text: '待辦事項', isFinish: false }
         //     ]
         //   }
         // ]
