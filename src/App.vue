@@ -97,7 +97,6 @@
         return `${year}/${month}/${day}`;
       },
       isValidDate(dateString) {
-
         // 將正確日期格式拆開
         const [year, month, day] = dateString.split('-');
 

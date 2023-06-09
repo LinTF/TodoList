@@ -14,7 +14,7 @@
                     </label>
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-danger mb-3" :style="{ visibility: todoItem.showDeleteBtn === true ? 'unset' : 'hidden' }" @click="deleteTodoItem(itemIndex)">刪除</button>
+                    <button type="submit" class="btn btn-danger mb-3" :style="{ visibility: todoItem.showDeleteBtn === true ? 'unset' : 'hidden' }" @click="deleteTodoItem(todo.date, dateIndex, itemIndex)">刪除</button>
                 </div>
             </div>
         </div>
@@ -41,18 +41,24 @@ import { end } from '@popperjs/core';
             }
         },
         methods: {
-            deleteTodoItem(val) {
-                // 從 localStorage 將 todoItem 取出，並轉換成陣列
-                const listItem = JSON.parse(localStorage.getItem('todoItem'));
-                // val = index 如果 val >= 0，執行陣列的刪除，(val, 1) = 第 index 個，長度 1
-                if (val >= 0) {
-                    // localStorage 陣列刪除
-                    listItem.splice(val, 1);
-                    // 顯示的陣列刪除
-                    this.propsTodo.splice(val, 1);
+            deleteTodoItem(date, dateIndex, itemIndex) {
+                // 先找到要刪除的日期
+                const dateData = this.propsTodo.find(item => item.date === date);
+                // 計算該日期有幾筆資料
+                const dataCount = dateData.item.length;
+
+                // 如果資料量大於一筆，則刪除該項目，其他．則將該日期資料全刪除
+                if (dataCount > 1) {
+                    dateData.item.splice(itemIndex, 1);
+                } else {
+                    this.propsTodo.splice(dateIndex, 1);
                 }
+
+                // 切完之後畫面的刪除按鈕隱藏
+                this.showClass(date)
+                
                 // 將 localStorage 陣列裝回
-                localStorage.setItem('todoItem', JSON.stringify(listItem));
+                localStorage.setItem('todoItem', JSON.stringify(this.propsTodo));
             },
             showClass(dateVal) {
                 for (const todo of this.propsTodo) {
@@ -72,13 +78,6 @@ import { end } from '@popperjs/core';
 
                 if (isFinish === true) {
                     this.propsTodo[dateIndex].item[itemIndex].isFinish = false;
-                }
-            }
-        },
-        computed: {
-            dynamicStyle() {
-                return {
-                    // visibility: this.isShow ? 'unset' : 'hidden'
                 }
             }
         }
