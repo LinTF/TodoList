@@ -14,7 +14,7 @@
                     </label>
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-danger mb-3" :style="{ visibility: todoItem.showDeleteBtn === true ? 'unset' : 'hidden' }" @click="deleteTodoItem(todo.date, dateIndex, itemIndex)">刪除</button>
+                    <button type="submit" class="btn btn-danger mb-3" :style="{ visibility: todo.isEdit === true ? 'unset' : 'hidden' }" @click="deleteTodoItem(todo.date, dateIndex, itemIndex)">刪除</button>
                 </div>
             </div>
         </div>
@@ -59,11 +59,9 @@ import { end } from '@popperjs/core';
             showDelBtn(dateVal) {
                 for (const todo of this.propsTodo) {
                     if (todo.date === dateVal) {
-                        for (const item of todo.item) {
-                            item.showDeleteBtn = !item.showDeleteBtn;
-                        }
-        
-                        break;
+                        todo.isEdit = !todo.isEdit;
+                    } else {
+                        todo.isEdit = false;
                     }
                 }
             },

@@ -53,12 +53,20 @@
       const month = String(today.getMonth() + 1).padStart(2, '0');
       const day = String(today.getDate()).padStart(2, '0');
       this.selectedDate = `${year}-${month}-${day}`;
+
+      // 預設刪除按鈕隱藏
+      for (const item of this.todoItem) {
+        if (item.isEdit) {
+          item.isEdit = false;
+        }
+      }
     },
     methods: {
       addTodoItem() {
         // *** todoItem 陣列結構 [
         //   {
         //     date: '2023/05/19',
+        //     isEdit: false,
         //     item: [
         //       { text: '待辦事項', isFinish: false, showDeleteBtn: false }
         //     ]
@@ -78,9 +86,9 @@
 
           // 如果已存在，就新增該日期的資料，不存在就新增包含日期的資料
           if (hasDateData) {
-            hasDateData.item.push({ text: todoItemText, isFinish: false, showDeleteBtn: false });
+            hasDateData.item.push({ text: todoItemText, isFinish: false });
           } else {
-            const newTodoItem = { date: formatSelDate, item: [{ text: todoItemText, isFinish: false, showDeleteBtn: false }] };
+            const newTodoItem = { date: formatSelDate, isEdit: false, item: [{ text: todoItemText, isFinish: false }] };
             this.todoItem.push(newTodoItem);
           }
 
