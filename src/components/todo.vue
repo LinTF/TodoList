@@ -1,20 +1,27 @@
 <template>
     <div class="col-md-4 date-black" v-for="(todo, dateIndex) in propsTodo" :key="dateIndex">
         <h3>{{ todo.date }}
-            <button class="del-icon" @click="showDelBtn(todo.date)"><i class="fa-regular fa-trash-can"></i></button>
+            <button class="del-icon" 
+                @click="showDelBtn(todo.date)">
+                <i class="fa-regular fa-trash-can"></i>
+            </button>
         </h3>
         <div class="todo-block">
             <div v-for="(todoItem, itemIndex) in todo.item" :key="todoItem.text" class="row item">
                 <div class="col-md-8 vertical-center">
                     <input type="checkbox" :id="todoItem.text+itemIndex" 
-                        @change="getCheckedItem(dateIndex, itemIndex, todoItem.isFinish)">
+                        @change="getCheckedItem(dateIndex, itemIndex, todoItem.isFinish)"
+                        :checked="todoItem.isFinish"
+                        :disabled="todoItem.isFinish">
                     <label :for="todoItem.text+itemIndex" 
                         :style="{ 'text-decoration': todoItem.isFinish === true ? 'line-through' : 'none' }">
                         {{ todoItem.text }}
                     </label>
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-danger mb-3" :style="{ visibility: todo.isEdit === true ? 'unset' : 'hidden' }" @click="deleteTodoItem(todo.date, dateIndex, itemIndex)">刪除</button>
+                    <button type="submit" class="btn btn-danger mb-3" 
+                    :style="{ visibility: todo.isEdit === true ? 'unset' : 'hidden' }" 
+                    @click="deleteTodoItem(todo.date, dateIndex, itemIndex)">刪除</button>
                 </div>
             </div>
         </div>
@@ -73,6 +80,9 @@ import { end } from '@popperjs/core';
                 if (isFinish === true) {
                     this.propsTodo[dateIndex].item[itemIndex].isFinish = false;
                 }
+
+                // 將 localStorage 陣列裝回
+                localStorage.setItem('todoItem', JSON.stringify(this.propsTodo));
             }
         }
     }
