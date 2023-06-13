@@ -54,12 +54,7 @@
       const day = String(today.getDate()).padStart(2, '0');
       this.selectedDate = `${year}-${month}-${day}`;
 
-      // 預設刪除按鈕隱藏
-      for (const item of this.todoItem) {
-        if (item.isEdit) {
-          item.isEdit = false;
-        }
-      }
+      this.formatDelBtn();
     },
     methods: {
       addTodoItem() {
@@ -97,6 +92,9 @@
 
           // 清空輸入框
           this.todoItemText = '';
+
+          // 還原預設隱藏刪除按鈕
+          this.formatDelBtn();
         }
       },
       formatDate(dateStr) {
@@ -125,6 +123,14 @@
         }
 
         return true;
+      },
+      formatDelBtn() {
+        // 預設刪除按鈕隱藏
+        for (const item of this.todoItem) {
+          if (item.isEdit) {
+            item.isEdit = false;
+          }
+        }
       }
     },
     computed: {
