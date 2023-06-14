@@ -19,10 +19,14 @@
                         {{ todoItem.text }}
                     </label>
                 </div>
-                <div class="col-5">
+                <div class="col-5 btn-block">
                     <button type="submit" class="btn btn-danger mb-3" 
                     :style="{ visibility: todo.isEdit === true ? 'unset' : 'hidden' }" 
                     @click="deleteTodoItem(todo.date, dateIndex, itemIndex)">刪除</button>
+
+                    <button type="submit" class="btn return mb-3" 
+                    :style="{ visibility: todoItem.isFinish === true ? 'unset' : 'hidden' }" 
+                    @click="getCheckedItem(dateIndex, itemIndex, todoItem.isFinish)">復原</button>
                 </div>
             </div>
         </div>
@@ -74,13 +78,7 @@ import { end } from '@popperjs/core';
                 }
             },
             getCheckedItem(dateIndex, itemIndex, isFinish) {
-                if (isFinish === false) {
-                    this.propsTodo[dateIndex].item[itemIndex].isFinish = true;
-                }
-
-                if (isFinish === true) {
-                    this.propsTodo[dateIndex].item[itemIndex].isFinish = false;
-                }
+                this.propsTodo[dateIndex].item[itemIndex].isFinish = !this.propsTodo[dateIndex].item[itemIndex].isFinish
 
                 // 將 localStorage 陣列裝回
                 localStorage.setItem('todoItem', JSON.stringify(this.propsTodo));
@@ -102,9 +100,17 @@ import { end } from '@popperjs/core';
                 border: 1px solid #d6279c;
             }
         }
+
+        .return {
+            color: #d4ac7c;
+        }
     }
     
     .date-black {
         margin-bottom: 30px;
+    }
+
+    .btn-block {
+        display: flex;
     }
 </style>
