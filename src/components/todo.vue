@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-4 date-black" v-for="(todo, dateIndex) in propsTodo" :key="dateIndex">
+    <div class="col-xl-4 col-md-6 date-black" v-for="(todo, dateIndex) in propsTodo" :key="dateIndex">
         <h3>{{ todo.date }}
             <button class="del-icon" 
                 @click="showDelBtn(todo.date)">
@@ -21,11 +21,12 @@
                 </div>
                 <div class="col-5 btn-block">
                     <button type="submit" class="btn btn-danger mb-3" 
-                    :style="{ visibility: todo.isEdit === true ? 'unset' : 'hidden' }" 
+                    :style="{ visibility: todo.isEdit === true ? 'unset' : 'hidden', 
+                              display: todo.isEdit === false && todoItem.isFinish === true ? 'none' : 'block' }" 
                     @click="deleteTodoItem(todo.date, dateIndex, itemIndex)">刪除</button>
 
                     <button type="submit" class="btn return mb-3" 
-                    :style="{ visibility: todoItem.isFinish === true ? 'unset' : 'hidden' }" 
+                    :style="{ display: todo.isEdit === false && todoItem.isFinish === true ? 'block' : 'none' }" 
                     @click="getCheckedItem(dateIndex, itemIndex, todoItem.isFinish)">復原</button>
                 </div>
             </div>
@@ -108,9 +109,5 @@ import { end } from '@popperjs/core';
     
     .date-black {
         margin-bottom: 30px;
-    }
-
-    .btn-block {
-        display: flex;
     }
 </style>
