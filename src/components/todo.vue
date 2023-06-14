@@ -7,8 +7,9 @@
             </button>
         </h3>
         <div class="todo-block">
-            <div v-for="(todoItem, itemIndex) in todo.item" :key="todoItem.text" class="row item">
-                <div class="col-md-8 vertical-center">
+            <div v-for="(todoItem, itemIndex) in todo.item" :key="todoItem.text" class="row item"
+                :style="{ 'background-color': todoItem.isFinish === false ? '#f8e4cc' : '#fff' }">
+                <div class="col-7 vertical-center">
                     <input type="checkbox" :id="todoItem.text+itemIndex" 
                         @change="getCheckedItem(dateIndex, itemIndex, todoItem.isFinish)"
                         :checked="todoItem.isFinish"
@@ -18,7 +19,7 @@
                         {{ todoItem.text }}
                     </label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-5">
                     <button type="submit" class="btn btn-danger mb-3" 
                     :style="{ visibility: todo.isEdit === true ? 'unset' : 'hidden' }" 
                     @click="deleteTodoItem(todo.date, dateIndex, itemIndex)">刪除</button>
@@ -95,7 +96,7 @@ import { end } from '@popperjs/core';
         background-color: #fff;
 
         .item {
-            background-color: #f8e4cc;
+            border: 1px solid #f8e4cc;
 
             &:hover{
                 border: 1px solid #d6279c;
