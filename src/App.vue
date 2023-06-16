@@ -170,13 +170,20 @@
 
   hr {
     border: 1px solid #ccc;
-    width: 50%;
+    width: 80%;
     margin: 10px auto 30px auto;
   }
 
   .btn-primary  {
     display: block;
     margin: 0px auto 0px auto;
+  }
+
+  .btn-clear {
+    border: 1px solid #d4ac7c;
+    color: #d4ac7c;
+    display: block;
+    text-align: right;
   }
 
   @media screen and (max-width: 767px) {

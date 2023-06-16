@@ -10,11 +10,12 @@
             <div v-for="(todoItem, itemIndex) in todo.item" :key="todoItem.text" class="row item"
                 :style="{ 'background-color': todoItem.isFinish === false ? '#f8e4cc' : '#fff' }">
                 <div class="col-7 vertical-center">
-                    <input type="checkbox" :id="todoItem.text+itemIndex" 
-                        @change="getCheckedItem(dateIndex, itemIndex, todoItem.isFinish)"
+                    <input type="checkbox" :id="todo.date+itemIndex"
+                        :name="todo.date+itemIndex" 
+                        @change="getCheckedItem(dateIndex, itemIndex)"
                         :checked="todoItem.isFinish"
                         :disabled="todoItem.isFinish">
-                    <label :for="todoItem.text+itemIndex" 
+                    <label :for="todo.date+itemIndex" 
                         :style="{ 'text-decoration': todoItem.isFinish === true ? 'line-through' : 'none' }">
                         {{ todoItem.text }}
                     </label>
@@ -27,7 +28,7 @@
 
                     <button type="submit" class="btn return mb-3" 
                     :style="{ display: todo.isEdit === false && todoItem.isFinish === true ? 'block' : 'none' }" 
-                    @click="getCheckedItem(dateIndex, itemIndex, todoItem.isFinish)">復原</button>
+                    @click="getCheckedItem(dateIndex, itemIndex)">復原</button>
                 </div>
             </div>
         </div>
@@ -78,7 +79,9 @@ import { end } from '@popperjs/core';
                     }
                 }
             },
-            getCheckedItem(dateIndex, itemIndex, isFinish) {
+            getCheckedItem(dateIndex, itemIndex) {
+                console.log(dateIndex + ',,' + itemIndex)
+
                 this.propsTodo[dateIndex].item[itemIndex].isFinish = !this.propsTodo[dateIndex].item[itemIndex].isFinish
 
                 // 將 localStorage 陣列裝回
