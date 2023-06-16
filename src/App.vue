@@ -1,27 +1,40 @@
 <template>
-  <div id="edit-block">
-    <div class="row justify-content-md-center">
-      <div class="col-auto">
-        <label for="todoItem" class=" col-form-label">待辦事項：</label>
-      </div>
-      <div class="col-md-2">
-        <div class="dropdown">
-          <div>
-            <input type="date" v-model="selectedDate" class="form-control">
+  <div class="container">
+    <div id="edit-block">
+      <div class="row">
+        <div class="col-xl-4 col-md-5">
+          <div class="row justify-content-md-center">
+            <div class="col-lg-auto">
+              <label for="todoItem" class=" col-form-label">待辦日期：</label>
+            </div>
+            <div class="col-lg-8 not-left-right-padding">
+              <div class="dropdown">
+                <input type="date" v-model="selectedDate" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 col-md-7">
+          <div class="row justify-content-md-center">
+            <div class="col-lg-auto">
+              <label for="todoItem" class=" col-form-label">待辦事項：</label>
+            </div>
+            <div class="col-lg-8 col-md-9 not-left-right-padding">
+              <input type="text" class="form-control" id="todoItem" placeholder="請輸入待辦事項" v-model="todoItemText">
+            </div>
+            <div class="col-md-auto">
+              <button type="submit" class="btn btn-primary mb-3" @click="addTodoItem">新增</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <input type="text" class="form-control" id="todoItem" placeholder="請輸入待辦事項" v-model="todoItemText">
-      </div>
-      <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3" @click="addTodoItem">新增</button>
-      </div>
     </div>
+    <hr />
   </div>
-  <hr />
-  <div class="row">
-    <todo :propsTodo="todoItemSort" />
+  <div class="container-fluid">
+    <div class="row">
+      <todo :propsTodo="todoItemSort" />
+    </div>
   </div>
 </template>
 
@@ -159,5 +172,23 @@
     border: 1px solid #ccc;
     width: 50%;
     margin: 10px auto 30px auto;
+  }
+
+  .btn-primary  {
+    display: block;
+    margin: 0px auto 0px auto;
+  }
+
+  @media screen and (max-width: 767px) {
+    .btn-primary {
+      margin-top: 10px;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .not-left-right-padding {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
   }
 </style>
