@@ -177,7 +177,6 @@
 
   hr {
     border: 1px solid #ccc;
-    width: 80%;
     margin: 10px auto 30px auto;
   }
 
