@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <button type="submit" class="btn btn-clear mb-3" @click="clearTodoList">清空全部待辦事項</button>
+  </div>
   <div class="container">
     <div id="edit-block">
       <div class="row">
@@ -144,6 +147,10 @@
             item.isEdit = false;
           }
         }
+      },
+      clearTodoList() {
+        this.todoItem = [];
+        localStorage.clear();
       }
     },
     computed: {
@@ -183,7 +190,7 @@
     border: 1px solid #d4ac7c;
     color: #d4ac7c;
     display: block;
-    text-align: right;
+    margin: 20px 10px 0px auto;
   }
 
   @media screen and (max-width: 767px) {
