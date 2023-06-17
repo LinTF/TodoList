@@ -190,6 +190,7 @@
     color: #d4ac7c;
     display: block;
     margin: 20px 10px 0px auto;
+    font-size: 12px;
   }
 
   @media screen and (max-width: 767px) {
