@@ -112,6 +112,10 @@ import { end } from '@popperjs/core';
             color: #d4ac7c;
             font-size: 14px;
         }
+
+        .btn-danger {
+            font-size: 14px;
+        }
     }
     
     .date-black {
