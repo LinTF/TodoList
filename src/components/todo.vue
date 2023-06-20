@@ -24,7 +24,7 @@
                     <button type="submit" class="btn btn-danger mb-3" 
                     :style="{ visibility: todo.isEdit === true ? 'unset' : 'hidden', 
                               display: todo.isEdit === false && todoItem.isFinish === true ? 'none' : 'block' }" 
-                    @click="deleteTodoItem(todo.date, dateIndex, itemIndex)">刪除</button>
+                    @click="deleteTodoItem(todo.date, dateIndex, itemIndex, todoItem.text)">刪除</button>
 
                     <button type="submit" class="btn return mb-3" 
                     :style="{ display: todo.isEdit === false && todoItem.isFinish === true ? 'block' : 'none' }" 
@@ -51,24 +51,27 @@ import { end } from '@popperjs/core';
             }
         },
         methods: {
-            deleteTodoItem(date, dateIndex, itemIndex) {
-                // 先找到要刪除的日期
-                const dateData = this.propsTodo.find(item => item.date === date);
-                // 計算該日期有幾筆資料
-                const dataCount = dateData.item.length;
+            deleteTodoItem(date, dateIndex, itemIndex, itemText) {
+                const checkDelete = confirm("您確定要刪除 " + date + '-' + itemText + " 嗎？");
+                if (checkDelete) {
+                    // 先找到要刪除的日期
+                    const dateData = this.propsTodo.find(item => item.date === date);
+                    // 計算該日期有幾筆資料
+                    const dataCount = dateData.item.length;
 
-                // 如果資料量大於一筆，則刪除該項目，其他．則將該日期資料全刪除
-                if (dataCount > 1) {
-                    dateData.item.splice(itemIndex, 1);
-                } else {
-                    this.propsTodo.splice(dateIndex, 1);
+                    // 如果資料量大於一筆，則刪除該項目，其他．則將該日期資料全刪除
+                    if (dataCount > 1) {
+                        dateData.item.splice(itemIndex, 1);
+                    } else {
+                        this.propsTodo.splice(dateIndex, 1);
+                    }
+
+                    // 切完之後畫面的刪除按鈕隱藏
+                    this.showDelBtn(date)
+                    
+                    // 將 localStorage 陣列裝回
+                    localStorage.setItem('todoItem', JSON.stringify(this.propsTodo));
                 }
-
-                // 切完之後畫面的刪除按鈕隱藏
-                this.showDelBtn(date)
-                
-                // 將 localStorage 陣列裝回
-                localStorage.setItem('todoItem', JSON.stringify(this.propsTodo));
             },
             showDelBtn(dateVal) {
                 for (const todo of this.propsTodo) {

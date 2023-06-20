@@ -149,8 +149,11 @@
         }
       },
       clearTodoList() {
-        this.todoItem = [];
-        localStorage.clear();
+        const result = confirm("您確定要清空全部待辦事項嗎？")
+        if (result) {
+          this.todoItem = [];
+          localStorage.clear();
+        }
       }
     },
     computed: {
