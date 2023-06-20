@@ -28,7 +28,7 @@
 
                     <button type="submit" class="btn return mb-3" 
                     :style="{ display: todo.isEdit === false && todoItem.isFinish === true ? 'block' : 'none' }" 
-                    @click="getCheckedItem(dateIndex, itemIndex)">復原</button>
+                    @click="getCheckedItem(dateIndex, itemIndex)">取消勾選</button>
                 </div>
             </div>
         </div>
@@ -110,6 +110,7 @@ import { end } from '@popperjs/core';
 
         .return {
             color: #d4ac7c;
+            font-size: 14px;
         }
     }
     
